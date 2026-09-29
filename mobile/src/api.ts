@@ -2,7 +2,7 @@
 // mobile app works out of the box; override with EXPO_PUBLIC_API_BASE_URL to
 // point at a local server (e.g. http://<your-lan-ip>:8931).
 export const API =
-  process.env.EXPO_PUBLIC_API_BASE_URL ?? 'https://anywear-1065701526224.asia-northeast1.run.app';
+  process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://localhost:8931';
 
 export interface DetectedGarment {
   label: string;

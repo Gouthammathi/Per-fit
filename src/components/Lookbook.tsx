@@ -17,7 +17,7 @@ export default function Lookbook() {
             <span className="font-tag text-[0.66rem] text-accent">05</span>
             <span className="font-display text-2xl font-medium">Lookbook</span>
           </h2>
-          <span className="tag-label">{lookbook.length} looks</span>
+          <span className="tag-label">{lookbook.length} {lookbook.length === 1 ? 'look' : 'looks'}</span>
         </header>
         <div className="flex gap-5 overflow-x-auto pb-2">
           {lookbook.map((e, i) => (
