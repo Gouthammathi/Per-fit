@@ -112,7 +112,7 @@ export default function App() {
       setTwinFileId(null);
       void ensureTwinUploaded(twinImg).catch(() => {}); // retried lazily on first try-on
     } catch (err) {
-      setStage({ phase: 'error', message: `Could not reach the Anywear server at ${API} — is it running?` });
+      setStage({ phase: 'error', message: `Could not reach the Per-fit server at ${API} — is it running?` });
     }
   }
 
@@ -219,16 +219,16 @@ export default function App() {
           {twin && (
             <>
               <Text style={styles.brand}>
-                Any<Text style={styles.brandItalic}>wear</Text>
+                Per-<Text style={styles.brandItalic}>fit</Text>
               </Text>
-              <Text style={styles.tagline}>Screenshot it. Wear it. Styled for your skin — today.</Text>
+              <Text style={styles.tagline}>Screenshot it. See your fit. Styled for your skin — today.</Text>
             </>
           )}
 
           {/* Welcome */}
           {!twin ? (
             <View style={styles.heroBleed}>
-              {/* Full-bleed hero: a real Anywear try-on as the opening image */}
+              {/* Full-bleed hero: a real Per-fit try-on as the opening image */}
               <View style={[styles.hero, { height: Math.min(480, SCREEN_H * 0.52) }]}>
                 <Image source={HERO} style={styles.heroImg} resizeMode="cover" />
                 <LinearGradient
@@ -237,9 +237,9 @@ export default function App() {
                   style={StyleSheet.absoluteFill}
                 />
                 <View style={styles.heroContent}>
-                  <Text style={styles.tag}>your fitting room, everywhere</Text>
+                  <Text style={styles.tag}>your perfect fit, from any screenshot</Text>
                   <Text style={styles.heroBrand}>
-                    Any<Text style={styles.brandItalic}>wear</Text>
+                    Per-<Text style={styles.brandItalic}>fit</Text>
                   </Text>
                 </View>
               </View>
@@ -411,7 +411,7 @@ export default function App() {
                       Try anything <Text style={styles.brandItalic}>you see</Text>
                     </Text>
                     <Text style={[styles.body, { marginTop: 6 }]}>
-                      Pick any screenshot — a shop page, a social post, a street photo. Anywear finds the clothes in
+                      Pick any screenshot — a shop page, a social post, a street photo. Per-fit finds the clothes in
                       it.
                     </Text>
                     <Pressable
@@ -584,14 +584,14 @@ export default function App() {
                           {
                             color:
                               verdict.verdict === 'wear_it'
-                                ? colors.sageDeep
+                                ? colors.accentDeep
                                 : verdict.verdict === 'maybe'
                                   ? colors.ochre
                                   : colors.brick,
                           },
                         ]}
                       >
-                        {verdict.verdict === 'wear_it' ? '✓ Wear it' : verdict.verdict === 'maybe' ? '≈ Maybe' : '✕ Skip it'}
+                        {verdict.verdict === 'wear_it' ? '✓ Perfect fit' : verdict.verdict === 'maybe' ? '≈ Maybe' : '✕ Skip it'}
                       </Text>
                       <Text style={[styles.tag, { textAlign: 'center' }]}>{verdict.score}/100</Text>
                       <Text style={styles.briefHeadline}>“{verdict.headline}”</Text>
@@ -625,7 +625,7 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.porcelain },
   scroll: { padding: 16 },
   brand: { ...serif, fontSize: 40, color: colors.ink, fontWeight: '500' },
-  brandItalic: { ...serif, fontStyle: 'italic', color: colors.sageDeep },
+  brandItalic: { ...serif, fontStyle: 'italic', color: colors.accentDeep },
   tagline: { color: colors.inkSoft, marginTop: 4, marginBottom: 14, fontSize: 14 },
   tag: {
     fontFamily: 'Menlo',
@@ -647,7 +647,7 @@ const styles = StyleSheet.create({
   rowTop: { flexDirection: 'row', alignItems: 'flex-start' },
   rowBetween: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   btnPrimary: {
-    backgroundColor: colors.sageDeep,
+    backgroundColor: colors.accentDeep,
     borderRadius: 999,
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -697,7 +697,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
     marginBottom: 6,
   },
-  occChipOn: { backgroundColor: colors.sageDeep, borderColor: colors.sageDeep },
+  occChipOn: { backgroundColor: colors.accentDeep, borderColor: colors.accentDeep },
   input: {
     flex: 1,
     borderColor: colors.line,
@@ -764,7 +764,7 @@ const styles = StyleSheet.create({
   heroTagline: { color: colors.inkSoft, fontSize: 16, lineHeight: 24, fontWeight: '300' },
   welcomeSample: { width: '100%', aspectRatio: 3 / 4, borderRadius: 12, borderWidth: 1, borderColor: colors.line },
   stepRow: { flexDirection: 'row', gap: 14, marginTop: 26, marginBottom: 8 },
-  stepNum: { fontFamily: 'Menlo', fontSize: 11, color: colors.sageDeep, marginBottom: 4 },
+  stepNum: { fontFamily: 'Menlo', fontSize: 11, color: colors.accentDeep, marginBottom: 4 },
   stepTitle: { ...serif, fontSize: 18, color: colors.ink, marginBottom: 3 },
   stepDesc: { fontSize: 11, lineHeight: 16, color: colors.inkSoft },
   loaderOverlay: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },

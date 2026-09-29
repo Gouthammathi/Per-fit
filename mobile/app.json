@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Anywear",
-    "slug": "anywear",
+    "name": "Per-fit",
+    "slug": "perfit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,7 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Anywear needs your photo library to pick your full-body photo, selfie, and fashion screenshots."
+        "NSPhotoLibraryUsageDescription": "Per-fit needs your photo library to pick your full-body photo, selfie, and fashion screenshots."
       }
     },
     "android": {
@@ -24,12 +24,12 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "anywear",
+    "scheme": "perfit",
     "plugins": [
       [
         "expo-image-picker",
         {
-          "photosPermission": "Anywear picks your photos and fashion screenshots for virtual try-on."
+          "photosPermission": "Per-fit picks your photos and fashion screenshots for virtual try-on."
         }
       ]
     ]

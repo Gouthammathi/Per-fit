@@ -115,12 +115,12 @@ export function TailorLoader() {
       <View style={{ width: 110, height: 120 }}>
         <Svg width={110} height={120} viewBox="0 0 110 120">
           {/* hanger */}
-          <Path d="M55 6 Q62 6 62 12 Q62 17 55 19 L55 24" stroke={colors.sageDeep} strokeWidth={2.4} fill="none" strokeLinecap="round" />
-          <Path d="M55 24 L18 40 Q16 41 18 42 L92 42 Q94 41 92 40 Z" stroke={colors.sageDeep} strokeWidth={2.4} fill="none" strokeLinejoin="round" />
+          <Path d="M55 6 Q62 6 62 12 Q62 17 55 19 L55 24" stroke={colors.accentDeep} strokeWidth={2.4} fill="none" strokeLinecap="round" />
+          <Path d="M55 24 L18 40 Q16 41 18 42 L92 42 Q94 41 92 40 Z" stroke={colors.accentDeep} strokeWidth={2.4} fill="none" strokeLinejoin="round" />
           {/* dress outline, stitched */}
           <AnimatedPath
             d="M40 48 L44 60 Q55 66 66 60 L70 48 M44 60 L34 104 Q55 114 76 104 L66 60"
-            stroke={colors.sage}
+            stroke={colors.accent}
             strokeWidth={2.2}
             fill="none"
             strokeLinecap="round"
@@ -136,7 +136,7 @@ export function TailorLoader() {
         {/* needle glint sliding along the tape */}
         <Animated.View style={[styles.needle, { transform: [{ translateX: needleX }] }]} />
       </View>
-      <RotatingCaption lines={TAILOR_LINES} color={colors.sageDeep} />
+      <RotatingCaption lines={TAILOR_LINES} color={colors.accentDeep} />
     </View>
   );
 }
@@ -201,9 +201,9 @@ const styles = StyleSheet.create({
     width: 16,
     height: 8,
     borderRadius: 4,
-    backgroundColor: colors.sageTint,
+    backgroundColor: colors.accentTint,
     borderWidth: 1.5,
-    borderColor: colors.sageDeep,
+    borderColor: colors.accentDeep,
   },
   sweepLine: {
     position: 'absolute',
