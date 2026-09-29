@@ -1,4 +1,4 @@
-# Anywear — API server + built web app in one container.
+# Per-fit — API server + built web app in one container.
 FROM node:22-slim AS build
 WORKDIR /app
 COPY package.json package-lock.json ./

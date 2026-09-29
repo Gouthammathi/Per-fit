@@ -10,7 +10,7 @@ for (const model of ['gemini-3-flash-preview-tts', 'gemini-2.5-flash-preview-tts
   try {
     const res = await ai.models.generateContent({
       model,
-      contents: [{ role: 'user', parts: [{ text: 'Say warmly: This is Anywear. Your fitting room, everywhere.' }] }],
+      contents: [{ role: 'user', parts: [{ text: 'Say warmly: This is Per-fit. Your perfect fit, from any screenshot.' }] }],
       config: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Aoede' } } } },
     });
     const part = res.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);

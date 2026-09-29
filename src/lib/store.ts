@@ -44,7 +44,7 @@ interface SkinState {
   briefStatus: 'idle' | 'running' | 'done' | 'error';
 }
 
-interface AnywearState {
+interface PerfitState {
   twinPhoto: string | null; // stored downscaled dataURL
   twinFileId: string | null; // YouCam file_id (valid ~30 days)
   selfiePhoto: string | null;
@@ -72,7 +72,7 @@ interface AnywearState {
 
 const initialSkin: SkinState = { status: 'idle', output: [], brief: null, briefStatus: 'idle' };
 
-export const useStore = create<AnywearState>()(
+export const useStore = create<PerfitState>()(
   persist(
     (set, get) => ({
       twinPhoto: null,
@@ -302,7 +302,7 @@ export const useStore = create<AnywearState>()(
         }),
     }),
     {
-      name: 'anywear',
+      name: 'perfit',
       partialize: (s) => ({
         twinPhoto: s.twinPhoto,
         twinFileId: s.twinFileId,

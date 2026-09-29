@@ -284,5 +284,5 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = Number(process.env.PORT ?? 8787);
 serve({ fetch: app.fetch, port }, () => {
-  console.log(`anywear server on http://localhost:${port}`);
+  console.log(`per-fit server on http://localhost:${port}`);
 });

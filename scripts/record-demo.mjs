@@ -1,10 +1,10 @@
-// Records the full Anywear demo flow as a webm + events.json timing log.
+// Records the full Per-fit demo flow as a webm + events.json timing log.
 // Usage: node scripts/record-demo.mjs [outDir]
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const OUT = process.argv[2] ?? '/tmp/anywear-demo';
+const OUT = process.argv[2] ?? '/tmp/perfit-demo';
 fs.mkdirSync(OUT, { recursive: true });
 
 const APP = 'http://localhost:5199';

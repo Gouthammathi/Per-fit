@@ -9,7 +9,7 @@ const ai = new GoogleGenAI({
 const OUT = process.argv[2];
 fs.mkdirSync(OUT, { recursive: true });
 const LINES = [
-  ['vo01', 'This is Anywear. Your fitting room, everywhere.'],
+  ['vo01', 'This is Per-fit. Your perfect fit, from any screenshot.'],
   ['vo02', 'One full-body photo and one selfie become your twin.'],
   ['vo03', 'YouCam Skin Analysis reads seven concerns in seconds. Real scores, skin type, and skin age.'],
   ['vo04', 'Gemini turns those scores into a daily brief. Care actions, and the colors to wear today.'],
@@ -19,7 +19,7 @@ const LINES = [
   ['vo08', "An honest stylist judges the actual result, against today's skin brief."],
   ['vo09', 'Change the occasion, and the verdict changes with it. Too cozy for a night out? Skip it.'],
   ['vo10', "Product shots work too. This dress comes straight from today's palette."],
-  ['vo11', 'Every look lands in your lookbook. Anywear. Screenshot it. Wear it.'],
+  ['vo11', 'Every look lands in your lookbook. Per-fit. Screenshot it. See your fit.'],
 ];
 for (const [name, text] of LINES) {
   const res = await ai.models.generateContent({

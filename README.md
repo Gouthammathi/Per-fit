@@ -1,4 +1,6 @@
-# Anywear
+# Per-fit
+
+*Per-fit — for the perfect fit.*
 
 **Screenshot any look, anywhere — see it on your own body in seconds, judged honestly for your skin, your colors, and your day.**
 
@@ -6,13 +8,13 @@ Built for the [YouCam API Skin AI & Apparel VTO Hackathon](https://youcam-api.de
 
 **Live demo: https://anywear-1065701526224.asia-northeast1.run.app** (Cloud Run, Tokyo)
 
-![Anywear welcome screen](docs/screenshots/01-welcome.png)
+![Per-fit welcome screen](docs/screenshots/01-welcome.png)
 
 ## The problem
 
 Fashion inspiration lives in screenshots — a shop page, a social post, a street photo — but none of it answers the two questions that actually decide a purchase: **"how does this look on *me*?"** and **"does it work for me *today*?"** How a garment reads on you is inseparable from how your skin looks the morning you wear it. Apps treat skin and clothing as different industries; your mirror doesn't.
 
-## What Anywear does
+## What Per-fit does
 
 1. **Your twin.** One full-body photo becomes your fitting-room double. One bare-faced selfie becomes your skin baseline.
 2. **Skin today.** YouCam **AI Skin Analysis** scores seven concerns (redness, oil, moisture, radiance, clarity, texture, skin type + skin age) with per-concern detection masks you can view on your own face. Gemini turns the raw scores into a *daily skin brief*: what stands out, one concrete care action per concern, and — the key move — a **wearable color palette for today** ("visible redness → skip saturated reds near the face, favor cool sages").
@@ -71,7 +73,7 @@ Open http://localhost:5173, click **"Step in with the demo persona"**, and you a
 The included `Dockerfile` builds the web app and serves it together with the API from one container. Vertex AI auth comes from the runtime service account (grant it `roles/aiplatform.user`):
 
 ```bash
-gcloud run deploy anywear --source . --region asia-northeast1 --allow-unauthenticated \
+gcloud run deploy perfit --source . --region asia-northeast1 --allow-unauthenticated \
   --memory 1Gi --max-instances 3 --env-vars-file run-env.yaml   # YouCam keys + GOOGLE_CLOUD_PROJECT
 ```
 
