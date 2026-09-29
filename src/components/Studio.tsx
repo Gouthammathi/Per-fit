@@ -7,8 +7,42 @@ import SkinPanel from './SkinPanel';
 import MirrorStage from './MirrorStage';
 import VerdictTag from './VerdictTag';
 import Lookbook from './Lookbook';
+import Logo from './Logo';
+import Section from './Section';
 
 const OCCASIONS = ['a regular day out', 'the office', 'a first date', 'a job interview', 'a wedding guest look', 'a night out'];
+
+type StepState = 'todo' | 'active' | 'done';
+
+function ProgressRail() {
+  const { twinPhoto, skin, stage, verdict, verdictStatus } = useStore();
+  const steps: { label: string; state: StepState }[] = [
+    { label: 'You', state: twinPhoto ? 'done' : 'active' },
+    { label: 'Skin', state: skin.status === 'done' ? 'done' : skin.status === 'running' ? 'active' : 'todo' },
+    {
+      label: 'Look',
+      state: stage.phase === 'done' ? 'done' : ['detecting', 'pick', 'running'].includes(stage.phase) ? 'active' : 'todo',
+    },
+    { label: 'Verdict', state: verdict ? 'done' : verdictStatus === 'running' ? 'active' : 'todo' },
+  ];
+  return (
+    <ol className="hidden items-center gap-3 md:flex" aria-label="Progress">
+      {steps.map((s, i) => (
+        <li key={s.label} className="flex items-center gap-3">
+          {i > 0 && <span aria-hidden className={`h-px w-8 ${s.state === 'todo' ? 'bg-line' : 'bg-ink/40'}`} />}
+          <span
+            className={`flex items-center gap-2 font-tag text-[0.66rem] tracking-[0.14em] uppercase ${
+              s.state === 'done' ? 'text-ink' : s.state === 'active' ? 'text-accent' : 'text-ink-soft/60'
+            }`}
+          >
+            {s.state === 'active' && <span aria-hidden className="pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />}
+            0{i + 1} {s.label}
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}
 
 export default function Studio() {
   const { occasion, setOccasion, submitScreenshot, resetAll, stage, verdictStatus, requestVerdict } = useStore();
@@ -31,56 +65,53 @@ export default function Studio() {
     return () => window.removeEventListener('paste', onPaste);
   }, [submitScreenshot]);
 
+  function chooseOccasion(o: string) {
+    setOccasion(o);
+    if (stage.phase === 'done' && verdictStatus !== 'running') void requestVerdict();
+  }
+
   return (
-    <div
-      className="min-h-dvh"
-      style={{ background: 'radial-gradient(120% 90% at 50% -10%, #fbfaf7 0%, #f6f4f1 55%, #efece7 100%)' }}
-    >
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-5 pt-5 pb-2">
-        <p className="font-display text-2xl font-medium">
-          Any<span className="italic text-sage-deep">wear</span>
-        </p>
-        <div className="flex items-center gap-4">
-          {units !== null && <span className="tag-label">{units} youcam units</span>}
-          <button
-            type="button"
-            onClick={() => {
-              if (window.confirm('Clear your photos, skin reading and lookbook?')) resetAll();
-            }}
-            className="text-xs text-ink-soft underline-offset-2 hover:underline"
-          >
-            Start fresh
-          </button>
+    <div className="flex min-h-dvh flex-col bg-porcelain">
+      <header className="sticky top-0 z-20 border-b border-line bg-porcelain/90 backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between gap-6 px-6">
+          <Logo className="text-2xl" />
+          <ProgressRail />
+          <div className="flex items-center gap-5">
+            {units !== null && <span className="tag-label hidden sm:inline">{units} units</span>}
+            <button
+              type="button"
+              onClick={() => {
+                if (window.confirm('Clear your photos, skin reading and lookbook?')) resetAll();
+              }}
+              className="link"
+            >
+              Start fresh
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-7xl gap-4 overflow-x-clip px-5 pb-8 lg:grid-cols-[270px_minmax(0,1fr)_320px] lg:items-start">
-        <div className="order-2 flex flex-col gap-4 lg:order-1">
+      <main className="mx-auto grid w-full max-w-[1440px] flex-1 lg:grid-cols-[300px_minmax(0,1fr)_340px]">
+        <aside className="order-2 divide-y divide-line px-6 lg:order-1 lg:border-r lg:border-line">
           <TwinPanel />
           <SkinPanel />
-        </div>
+        </aside>
 
-        <div className="order-1 lg:sticky lg:top-4 lg:order-2 lg:h-[calc(100dvh-110px)]">
+        <div className="order-1 p-6 lg:sticky lg:top-16 lg:order-2 lg:h-[calc(100dvh-4rem)] lg:self-start">
           <MirrorStage />
         </div>
 
-        <div className="order-3 flex flex-col gap-4">
-          <section className="rounded-2xl border border-line bg-paper p-4">
-            <h2 className="tag-label mb-3">Dressing for</h2>
-            <div className="flex flex-wrap gap-1.5">
+        <aside className="order-3 divide-y divide-line px-6 lg:border-l lg:border-line">
+          <Section index="03" title="Dressing for">
+            <div className="flex flex-wrap gap-2">
               {OCCASIONS.map((o) => (
                 <button
                   key={o}
                   type="button"
-                  onClick={() => {
-                    setOccasion(o);
-                    if (stage.phase === 'done' && verdictStatus !== 'running') void requestVerdict();
-                  }}
+                  onClick={() => chooseOccasion(o)}
                   aria-pressed={occasion === o}
-                  className={`rounded-full border px-3 py-1.5 text-xs transition ${
-                    occasion === o
-                      ? 'border-sage-deep bg-sage-deep text-white'
-                      : 'border-line hover:border-ink/40'
+                  className={`border px-3 py-1.5 text-xs transition ${
+                    occasion === o ? 'border-ink bg-ink text-paper' : 'border-line hover:border-ink'
                   }`}
                 >
                   {o}
@@ -88,39 +119,36 @@ export default function Studio() {
               ))}
             </div>
             <form
-              className="mt-2 flex gap-1.5"
+              className="mt-4 flex items-end gap-3"
               onSubmit={(e) => {
                 e.preventDefault();
-                if (custom.trim()) {
-                  setOccasion(custom.trim());
-                  if (stage.phase === 'done' && verdictStatus !== 'running') void requestVerdict();
-                }
+                if (custom.trim()) chooseOccasion(custom.trim());
               }}
             >
               <input
                 value={custom}
                 onChange={(e) => setCustom(e.target.value)}
-                placeholder="or type your own…"
-                className="min-w-0 flex-1 rounded-full border border-line bg-transparent px-3 py-1.5 text-xs outline-none focus:border-sage-deep"
+                placeholder="Or describe your own…"
+                aria-label="Custom occasion"
+                className="min-w-0 flex-1 border-b border-line bg-transparent py-2 text-sm outline-none placeholder:text-ink-soft/70 focus:border-ink"
               />
-              <button type="submit" className="rounded-full border border-line px-3 py-1.5 text-xs hover:border-ink/40">
-                Set
+              <button type="submit" className="tag-label pb-2 !text-ink hover:!text-accent">
+                Set →
               </button>
             </form>
-          </section>
+          </Section>
 
           <VerdictTag />
-        </div>
+        </aside>
       </main>
 
-      <div className="mx-auto max-w-7xl px-5 pb-10">
-        <Lookbook />
-      </div>
+      <Lookbook />
 
-      <footer className="mx-auto max-w-7xl px-5 pb-6">
-        <p className="tag-label">
-          youcam skin ai + apparel vto · gemini styling brain · not medical advice
-        </p>
+      <footer className="border-t border-line">
+        <div className="mx-auto flex max-w-[1440px] flex-wrap justify-between gap-2 px-6 py-5">
+          <p className="tag-label">Per-fit · YouCam Skin AI + Apparel VTO · Gemini</p>
+          <p className="tag-label">Styling guidance, not medical advice</p>
+        </div>
       </footer>
     </div>
   );
