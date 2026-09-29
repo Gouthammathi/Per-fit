@@ -6,8 +6,6 @@
 
 Built for the [YouCam API Skin AI & Apparel VTO Hackathon](https://youcam-api.devpost.com) (combined *Skin AI + Apparel VTO* topic).
 
-**Live demo: https://anywear-1065701526224.asia-northeast1.run.app** (Cloud Run, Tokyo)
-
 ![Per-fit welcome screen](docs/screenshots/01-welcome.png)
 
 ## The problem
@@ -19,7 +17,7 @@ Fashion inspiration lives in screenshots — a shop page, a social post, a stree
 1. **Your twin.** One full-body photo becomes your fitting-room double. One bare-faced selfie becomes your skin baseline.
 2. **Skin today.** YouCam **AI Skin Analysis** scores seven concerns (redness, oil, moisture, radiance, clarity, texture, skin type + skin age) with per-concern detection masks you can view on your own face. Gemini turns the raw scores into a *daily skin brief*: what stands out, one concrete care action per concern, and — the key move — a **wearable color palette for today** ("visible redness → skip saturated reds near the face, favor cool sages").
 3. **Try anything you see.** Drop or paste *any* screenshot. Gemini Vision finds every wearable garment in it — through e-commerce UI chrome, prices, multiple products, worn outfits — classifies each as upper/lower/full-body, and crops a clean reference image. One tap sends it to YouCam **AI Clothes Virtual Try-On (v4)**, and the result appears in a before/after mirror.
-4. **The stylist verdict.** Gemini *looks at the actual generated try-on*, cross-references today's skin brief and your chosen occasion, and hands down an honest verdict on a garment hang-tag: Wear it / Maybe / Skip, with grounded reasons, a skin-harmony note, and pairing suggestions.
+4. **The stylist verdict.** Gemini *looks at the actual generated try-on*, cross-references today's skin brief and your chosen occasion, and hands down an honest verdict: Perfect fit / Maybe / Skip it, with grounded reasons, a skin-harmony note, and pairing suggestions.
 5. **Lookbook.** Every judged look is kept on-device for side-by-side deciding.
 
 The loop is agentic end-to-end: **measure (Skin AI) → reason (Gemini) → generate (Apparel VTO) → critique (Gemini judge) → decide (you)**.
@@ -66,7 +64,7 @@ cp .env.example .env   # fill in keys
 npm run dev            # server :8931 + web :5173
 ```
 
-Open http://localhost:5173, click **"Step in with the demo persona"**, and you are in the fitting room. Production build: `npm run build && npm start`.
+Open http://localhost:5173, click **"Try the demo"**, and you are in the fitting room. Production build: `npm run build && npm start`.
 
 ### Deploy (Cloud Run)
 
@@ -80,10 +78,6 @@ gcloud run deploy perfit --source . --region asia-northeast1 --allow-unauthentic
 ## Expo mobile app
 
 `mobile/` contains a React Native (Expo SDK 54) version of the same product — twin + selfie setup, skin scores and daily brief, screenshot try-on with tappable garment detection boxes, hold-to-compare mirror, and the stylist verdict — talking to the same server.
-
-| Home | Skin today + brief | Try-on + verdict |
-|---|---|---|
-| <img src="docs/screenshots/07-mobile-home.png" width="230"> | <img src="docs/screenshots/05-mobile-skin.png" width="230"> | <img src="docs/screenshots/06-mobile-verdict.png" width="230"> |
 
 Waiting states are crafted, not spinners: a face-scan animation while Skin Analysis runs, a viewfinder sweep during garment detection, and a stitched-hanger "tailoring" card while the try-on generates — each with rotating captions tied to the actual work.
 
@@ -100,7 +94,7 @@ The mobile app runs through **Expo Go** (no build step). Because it targets **Ex
 2. Put the phone on the **same Wi-Fi** as the computer.
 3. **iOS:** scan the QR with the Camera app and tap the banner. **Android:** scan from inside Expo Go. Or in Expo Go choose *Enter URL manually* and type the `exp://<lan-ip>:8082` address the CLI prints.
 
-The QR is a local dev pointer — it only works on the same network while `expo start` is running. For a zero-install experience on any device (and the link to hand judges), use the **live web app** above. On the iOS Simulator, `EXPO_PUBLIC_API_BASE_URL=http://localhost:8931` works as-is. `EXPO_PUBLIC_AUTODEMO=1` makes the app walk the whole demo unattended — handy for screenshots and CI.
+The QR is a local dev pointer — it only works on the same network while `expo start` is running. For a zero-install experience on any device, use the web app. On the iOS Simulator, `EXPO_PUBLIC_API_BASE_URL=http://localhost:8931` works as-is. `EXPO_PUBLIC_AUTODEMO=1` makes the app walk the whole demo unattended — handy for screenshots and CI.
 
 ## Demo assets
 
