@@ -6,7 +6,6 @@ export default function PhotoSlot(props: {
   hint: string;
   photo: string | null;
   onPhoto: (dataUrl: string) => void;
-  tall?: boolean;
 }) {
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -18,22 +17,20 @@ export default function PhotoSlot(props: {
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className={`group relative overflow-hidden rounded-2xl border border-line bg-paper transition hover:border-sage ${
-          props.tall ? 'aspect-[3/4]' : 'aspect-square'
-        } w-full`}
+        className={`group relative aspect-[3/4] w-full overflow-hidden border bg-paper transition ${
+          props.photo ? 'border-line hover:border-ink' : 'border-dashed border-ink/25 hover:border-ink'
+        }`}
       >
         {props.photo ? (
           <>
             <img src={props.photo} alt={props.label} className="h-full w-full object-cover" />
-            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/60 to-transparent px-3 pt-8 pb-2 text-left text-xs font-medium text-white opacity-0 transition group-hover:opacity-100">
-              Replace photo
+            <span className="tag-label absolute inset-x-0 bottom-0 bg-ink/70 py-2 !text-white opacity-0 transition group-hover:opacity-100">
+              Replace
             </span>
           </>
         ) : (
-          <span className="flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-lg text-ink-soft">
-              +
-            </span>
+          <span className="flex h-full w-full flex-col items-center justify-center gap-3 p-4 text-center">
+            <span className="font-display text-3xl leading-none text-ink-soft transition group-hover:text-ink">+</span>
             <span className="text-xs leading-relaxed text-ink-soft">{props.hint}</span>
           </span>
         )}
