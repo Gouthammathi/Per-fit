@@ -1,6 +1,12 @@
 # Per-fit
 
+[![Open Source](https://img.shields.io/badge/open%20source-%E2%9D%A4-2c3a58)](https://github.com/Gouthammathi/Per-fit)
+[![License: MIT](https://img.shields.io/badge/license-MIT-4a5d85)](#license)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-1c1b19)](#contributing)
+
 *Per-fit — for the perfect fit.*
+
+> **Open source & open to collaborators.** Per-fit is built in the open and contributions of every size are welcome — bug fixes, UI polish, new try-on ideas, or docs. See [Contributing](#contributing) to get started.
 
 **Screenshot any look, anywhere — see it on your own body in seconds, judged honestly for your skin, your colors, and your day.**
 
@@ -105,6 +111,16 @@ All demo people and garments in `public/samples/` are AI-generated (Gemini image
 - Skin analysis is styling guidance, not medical advice, and the UI says so.
 - VTO is a visual preview, not a fit/size simulator.
 - Result URLs expire (2 h upstream); the lookbook stores downscaled copies on-device instead.
+
+## Contributing
+
+Collaborators are welcome! To contribute:
+
+1. Fork the repo and create a branch: `git checkout -b feat/your-idea`
+2. Make your changes and check they build: `npx tsc -b && npm run build`
+3. Commit with a clear message (e.g. `feat(web): add size guide`) and open a pull request.
+
+Have an idea or found a bug? [Open an issue](https://github.com/Gouthammathi/Per-fit/issues) — discussion is always welcome.
 
 ## License
 
