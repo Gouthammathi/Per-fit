@@ -18,7 +18,7 @@ export default function BeforeAfter(props: { before: string; after: string; altA
   return (
     <div
       ref={ref}
-      className="mirror-reveal relative h-full w-full touch-none select-none overflow-hidden"
+      className="mirror-reveal relative h-full w-full cursor-ew-resize touch-none select-none overflow-hidden"
       onPointerDown={(e) => {
         (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
         fromPointer(e.clientX);
@@ -37,13 +37,13 @@ export default function BeforeAfter(props: { before: string; after: string; altA
       />
       {/* handle at the divider */}
       <div className="absolute inset-y-0" style={{ left: `${pos}%` }} aria-hidden>
-        <div className="absolute inset-y-0 -left-px w-0.5 bg-white/85 shadow-[0_0_10px_rgba(0,0,0,0.35)]" />
-        <div className="absolute top-1/2 -left-3.5 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[10px] text-ink shadow-md">
-          ↔
+        <div className="absolute inset-y-0 -left-px w-px bg-white" />
+        <div className="absolute top-1/2 -left-4 flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-white bg-ink/40 font-tag text-[10px] text-white backdrop-blur-sm">
+          ⇆
         </div>
       </div>
-      <span className="tag-label absolute top-3 left-3 rounded-full bg-ink/55 px-2.5 py-1 !text-white/90">before</span>
-      <span className="tag-label absolute top-3 right-3 rounded-full bg-ink/55 px-2.5 py-1 !text-white/90">in it</span>
+      <span className="tag-label absolute top-4 left-4 bg-ink/50 px-2 py-1 !text-white">Before</span>
+      <span className="tag-label absolute top-4 right-4 bg-ink/50 px-2 py-1 !text-white">In it</span>
       <input
         type="range"
         min={0}
