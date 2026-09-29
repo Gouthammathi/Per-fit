@@ -11,14 +11,14 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-porcelain: #f6f4f1;
+  --color-porcelain: #f7f6f3;
   --color-paper: #fdfcfa;
-  --color-ink: #221f1c;
-  --color-ink-soft: #6b655e;
-  --color-line: #e4dfd8;
-  --color-sage: #6f8a6b;
-  --color-sage-deep: #4c6349;
-  --color-sage-tint: #e6ecE2;
+  --color-ink: #1c1b19;
+  --color-ink-soft: #6f6a63;
+  --color-line: #e6e2db;
+  --color-accent: #4a5d85;
+  --color-accent-deep: #2c3a58;
+  --color-accent-tint: #e4e8f0;
   --color-blush: #c08064;
   --color-blush-deep: #9d5a40;
   --color-blush-tint: #f3e4db;
@@ -40,13 +40,76 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* mono garment-tag label */
-.tag-label {
-  font-family: var(--font-tag);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
+::selection {
+  background: var(--color-accent-tint);
+}
+
+@layer components {
+  /* mono garment-tag label */
+  .tag-label {
+    font-family: var(--font-tag);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    height: 2.75rem;
+    padding: 0 1.4rem;
+    border: 1px solid var(--color-ink);
+    font-family: var(--font-tag);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition:
+      background-color 0.2s,
+      border-color 0.2s,
+      color 0.2s;
+  }
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .btn-solid {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-solid:not(:disabled):hover {
+    background: var(--color-accent-deep);
+    border-color: var(--color-accent-deep);
+  }
+  .btn-line {
+    background: transparent;
+    color: var(--color-ink);
+  }
+  .btn-line:not(:disabled):hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-sm {
+    height: 2.25rem;
+    padding: 0 1rem;
+  }
+
+  .link {
+    font-size: 0.8rem;
+    color: var(--color-ink-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--color-line);
+    text-underline-offset: 0.3em;
+    transition:
+      color 0.2s,
+      text-decoration-color 0.2s;
+  }
+  .link:hover {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-ink);
+  }
 }
 
 /* scan shimmer while an AI task runs */
@@ -70,23 +133,18 @@ body {
   pointer-events: none;
 }
 
-/* hang-tag swing-in */
-@keyframes tagswing {
-  0% {
-    transform: rotate(-7deg) translateY(-6px);
+@keyframes fade-up {
+  from {
     opacity: 0;
+    transform: translateY(6px);
   }
-  55% {
-    transform: rotate(-0.5deg) translateY(0);
+  to {
     opacity: 1;
-  }
-  100% {
-    transform: rotate(-2deg) translateY(0);
+    transform: translateY(0);
   }
 }
-.tag-swing {
-  animation: tagswing 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
-  transform: rotate(-2deg);
+.fade-up {
+  animation: fade-up 0.5s ease-out both;
 }
 
 /* soft reveal for the mirror result */
@@ -104,17 +162,20 @@ body {
   animation: mirror-reveal 0.9s ease-out both;
 }
 
+@keyframes pulse-dot {
+  50% {
+    opacity: 0.3;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scanline::after,
-  .tag-swing,
-  .mirror-reveal {
+  .fade-up,
+  .mirror-reveal,
+  .pulse-dot {
     animation: none;
-  }
-  .tag-swing {
-    transform: rotate(-2deg);
-    opacity: 1;
-  }
-  .mirror-reveal {
-    opacity: 1;
   }
 }
